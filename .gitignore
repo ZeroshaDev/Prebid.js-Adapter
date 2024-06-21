@@ -1,0 +1,4 @@
+# UI node modues
+ui/node_modules/
+# Server node modues
+server/node_modules/

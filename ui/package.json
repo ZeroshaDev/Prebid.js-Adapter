@@ -1,0 +1,19 @@
+{
+  "name": "yozmatechtesttask-ui",
+  "version": "1.0.0",
+  "description": "Test task ui",
+  "scripts": {
+    "start": "http-server -p 3000 --cors",
+    "build-modules": "npm install && npm run gulp-build",
+    "gulp-build": "node utils/copy-files.js && cd node_modules/prebid.js && npm install && npm install gulp --save-dev && gulp build --modules=advertisexBidAdapter"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "prebid.js": "^9.1.0"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}

@@ -5,15 +5,18 @@ const BIDDER_CODE = "advertisex";
 const ADAPTER_VERSION = "1.0";
 const ENDPOINT_URL = "http://localhost:8080/getBid";
 
+// Adapter specification for 'advertisex' bidder
 const spec = {
   code: BIDDER_CODE,
   version: ADAPTER_VERSION,
   supportedMediaTypes: [BANNER],
 
+  // Function to validate bid requests on the client side
   isBidRequestValid: function (bid) {
     return !!bid.params.adUnitCode;
   },
 
+  // Function to build requests to the server to fetch bids
   buildRequests: function (bidRequests) {
     const requests = bidRequests.map((bid) => {
       return {
@@ -35,6 +38,7 @@ const spec = {
     return requests;
   },
 
+  // Function to interpret the server's response
   interpretResponse: function (serverResponse, request) {
     const bidResponses = [];
     const response = serverResponse.body;
@@ -45,6 +49,7 @@ const spec = {
     }
 
     if (response) {
+      // Constructing bid response object from server's response
       const bidResponse = {
         requestId: requestData.id,
         cpm: response.cpm,
@@ -59,6 +64,7 @@ const spec = {
       };
       bidResponses.push(bidResponse);
     } else {
+      // Handling case where no valid response is received
       return { error: "No response received from server" };
     }
 
@@ -66,4 +72,5 @@ const spec = {
   },
 };
 
+// Registering the bidder adapter with prebid.js
 registerBidder(spec);
